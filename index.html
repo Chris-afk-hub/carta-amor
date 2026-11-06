@@ -16,18 +16,8 @@ body{background:#f8c4dc}
 .star.large{width:9px;height:9px;background:#fff0b9}
 .star.tiny{width:3px;height:3px;box-shadow:0 0 0 1px #fff5}
 @keyframes twinkle{0%,100%{opacity:.35}50%{opacity:1}}
-.letter{position:absolute;z-index:2;left:50%;top:50%;width:108px;height:80px;padding:0;border:0;background:none;cursor:pointer;transform:translate(-50%,-50%);animation:drift 17s ease-in-out infinite;filter:drop-shadow(0 8px 0 #a64e7b30);-webkit-tap-highlight-color:transparent;perspective:500px}
-@keyframes drift{
-0%{transform:translate(-50%,-50%) translate(-29vw,-18vh) rotate(-9deg)}
-12%{transform:translate(-50%,-50%) translate(-9vw,-31vh) rotate(-3deg)}
-25%{transform:translate(-50%,-50%) translate(19vw,-24vh) rotate(7deg)}
-38%{transform:translate(-50%,-50%) translate(31vw,-5vh) rotate(10deg)}
-51%{transform:translate(-50%,-50%) translate(17vw,22vh) rotate(4deg)}
-64%{transform:translate(-50%,-50%) translate(-8vw,29vh) rotate(-7deg)}
-77%{transform:translate(-50%,-50%) translate(-31vw,13vh) rotate(-10deg)}
-90%{transform:translate(-50%,-50%) translate(-24vw,-8vh) rotate(-5deg)}
-100%{transform:translate(-50%,-50%) translate(-29vw,-18vh) rotate(-9deg)}
-}
+.letter{position:absolute;z-index:2;left:50%;top:50%;width:108px;height:80px;padding:0;border:0;background:none;cursor:pointer;transform:translate(-50%,-50%);animation:drift 19s linear infinite;will-change:transform;filter:drop-shadow(0 8px 0 #a64e7b30);-webkit-tap-highlight-color:transparent;perspective:500px}
+/* Trayectoria continua generada al iniciar. */
 .letter:hover{filter:drop-shadow(0 10px 0 #a64e7b30) brightness(1.04)}
 .letter:focus-visible{outline:2px dashed white;outline-offset:10px}
 .envelope{position:absolute;inset:7px 3px 3px;background:#fff0e8;border:4px solid #a9577d;box-shadow:inset 0 -5px #f3c6d2,inset 0 0 0 3px #fffaf0}
@@ -73,6 +63,20 @@ const scene=document.getElementById('scene');
 const letter=document.getElementById('letter');
 const warp=document.getElementById('warp');
 let opened=false;
+// Curva orbital orgánica: la carta nunca gira en esquinas ni sigue un cuadrado.
+(function makeDrift(){
+ const frames=[];
+ for(let i=0;i<=160;i++){
+  const t=(i/160)*Math.PI*2;
+  const x=34*Math.sin(t)+7*Math.sin(2*t+0.8)+3*Math.cos(3*t);
+  const y=27*Math.sin(2*t-0.55)+8*Math.cos(t+0.4);
+  const angle=7*Math.sin(t+0.5)+3*Math.cos(2*t);
+  frames.push((i/160*100).toFixed(3)+'%{transform:translate(-50%,-50%) translate('+x.toFixed(2)+'vw,'+y.toFixed(2)+'vh) rotate('+angle.toFixed(2)+'deg)}');
+ }
+ const style=document.createElement('style');
+ style.textContent='@keyframes drift{'+frames.join('')+'}';
+ document.head.appendChild(style);
+})();
 letter.addEventListener('click',()=>{
  if(opened)return;
  opened=true;
