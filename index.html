@@ -9,32 +9,44 @@
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{background:#f8c4dc}
-.scene{position:fixed;inset:0;overflow:hidden;background:linear-gradient(155deg,#fbd8e8 0%,#f7bdd9 48%,#eea6ca 100%);isolation:isolate}
+.scene{position:fixed;inset:0;overflow:hidden;background:linear-gradient(145deg,#fbddeb 0%,#f7c2dc 48%,#efa9ce 100%);isolation:isolate;transform-origin:center}
 .scene:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 100px #d77eae35}
 .stars{position:absolute;inset:0;pointer-events:none}
 .star{position:absolute;width:5px;height:5px;background:#fff9fc;box-shadow:0 0 0 2px #fff5;clip-path:polygon(33% 0,66% 0,66% 33%,100% 33%,100% 66%,66% 66%,66% 100%,33% 100%,33% 66%,0 66%,0 33%,33% 33%);animation:twinkle 2.8s steps(2,end) infinite}
 .star.large{width:9px;height:9px;background:#fff0b9}
 .star.tiny{width:3px;height:3px;box-shadow:0 0 0 1px #fff5}
 @keyframes twinkle{0%,100%{opacity:.35}50%{opacity:1}}
-.letter{position:absolute;z-index:2;left:50%;top:50%;width:116px;height:86px;padding:0;border:0;background:none;cursor:pointer;transform:translate(-50%,-50%);animation:drift 11s ease-in-out infinite;filter:drop-shadow(0 8px 0 #a64e7b30);-webkit-tap-highlight-color:transparent}
+.letter{position:absolute;z-index:2;left:50%;top:50%;width:108px;height:80px;padding:0;border:0;background:none;cursor:pointer;transform:translate(-50%,-50%);animation:drift 17s ease-in-out infinite;filter:drop-shadow(0 8px 0 #a64e7b30);-webkit-tap-highlight-color:transparent;perspective:500px}
 @keyframes drift{
-0%{transform:translate(-50%,-50%) translate(-27vw,-17vh) rotate(-8deg)}
-25%{transform:translate(-50%,-50%) translate(24vw,-22vh) rotate(6deg)}
-50%{transform:translate(-50%,-50%) translate(28vw,20vh) rotate(8deg)}
-75%{transform:translate(-50%,-50%) translate(-25vw,22vh) rotate(-5deg)}
-100%{transform:translate(-50%,-50%) translate(-27vw,-17vh) rotate(-8deg)}
+0%{transform:translate(-50%,-50%) translate(-29vw,-18vh) rotate(-9deg)}
+12%{transform:translate(-50%,-50%) translate(-9vw,-31vh) rotate(-3deg)}
+25%{transform:translate(-50%,-50%) translate(19vw,-24vh) rotate(7deg)}
+38%{transform:translate(-50%,-50%) translate(31vw,-5vh) rotate(10deg)}
+51%{transform:translate(-50%,-50%) translate(17vw,22vh) rotate(4deg)}
+64%{transform:translate(-50%,-50%) translate(-8vw,29vh) rotate(-7deg)}
+77%{transform:translate(-50%,-50%) translate(-31vw,13vh) rotate(-10deg)}
+90%{transform:translate(-50%,-50%) translate(-24vw,-8vh) rotate(-5deg)}
+100%{transform:translate(-50%,-50%) translate(-29vw,-18vh) rotate(-9deg)}
 }
 .letter:hover{filter:drop-shadow(0 10px 0 #a64e7b30) brightness(1.04)}
 .letter:focus-visible{outline:2px dashed white;outline-offset:10px}
 .envelope{position:absolute;inset:7px 3px 3px;background:#fff0e8;border:4px solid #a9577d;box-shadow:inset 0 -5px #f3c6d2,inset 0 0 0 3px #fffaf0}
-.envelope:before{content:"";position:absolute;z-index:2;left:-4px;right:-4px;top:-4px;height:51px;background:#f9dbe3;clip-path:polygon(0 0,100% 0,50% 100%);filter:drop-shadow(0 3px 0 #a9577d)}
-.envelope:after{content:"";position:absolute;z-index:3;inset:0;background:#f4cbd7;clip-path:polygon(0 100%,0 0,50% 56%,100% 0,100% 100%);opacity:.96}
-.seal{position:absolute;z-index:4;left:50%;top:51%;width:18px;height:16px;transform:translate(-50%,-50%);background:#d94e83;clip-path:polygon(50% 100%,0 43%,0 22%,12% 0,37% 0,50% 18%,63% 0,88% 0,100% 22%,100% 43%);filter:drop-shadow(2px 2px 0 #a43d6b)}
-.letter.gather{animation:none;transition:left .9s cubic-bezier(.2,.75,.2,1),top .9s cubic-bezier(.2,.75,.2,1),transform .9s cubic-bezier(.2,.75,.2,1),filter .9s}
-.letter.portal{z-index:8;animation:none;transition:transform 1.65s cubic-bezier(.62,0,.85,.28),opacity 1.65s,filter 1.65s;transform:translate(-50%,-50%) scale(28) rotate(24deg);opacity:0;filter:brightness(1.25)}
-.dark{position:fixed;z-index:10;inset:0;background:#08060d;opacity:0;pointer-events:none;transition:opacity 1.7s ease}
+.envelope:after{content:"";position:absolute;z-index:2;inset:0;background:#f4cbd7;clip-path:polygon(0 100%,0 0,50% 56%,100% 0,100% 100%);opacity:.96}
+.flap{position:absolute;z-index:4;left:3px;right:3px;top:7px;height:43px;background:#f9dbe3;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0;transition:transform .55s cubic-bezier(.2,.75,.25,1);backface-visibility:hidden}
+.seal{position:absolute;z-index:5;left:50%;top:51%;width:18px;height:16px;transform:translate(-50%,-50%);background:#d94e83;clip-path:polygon(50% 100%,0 43%,0 22%,12% 0,37% 0,50% 18%,63% 0,88% 0,100% 22%,100% 43%);filter:drop-shadow(2px 2px 0 #a43d6b);transition:opacity .25s,transform .4s}
+.letter.gather{animation:none;transition:left .82s cubic-bezier(.22,.72,.2,1),top .82s cubic-bezier(.22,.72,.2,1),transform .82s cubic-bezier(.22,.72,.2,1),filter .82s}
+.letter.opening .flap{transform:rotateX(180deg)}
+.letter.opening .seal{opacity:0;transform:translate(-50%,-75%) scale(.45)}
+.letter.portal{z-index:8;animation:none;transition:transform 1.35s cubic-bezier(.55,.02,.82,.25),opacity 1.35s ease-in,filter 1.35s;transform:translate(-50%,-50%) scale(25) rotate(8deg);opacity:0;filter:brightness(1.5) blur(1px)}
+.warp{position:fixed;z-index:6;inset:0;pointer-events:none;opacity:0;clip-path:ellipse(0% 0% at 50% 50%);background:radial-gradient(ellipse at center,#fff4f8a8 0%,#f6a9d7a0 24%,#d77ebd65 52%,transparent 72%);backdrop-filter:blur(0px) saturate(1);-webkit-backdrop-filter:blur(0px) saturate(1)}
+.warp.active{opacity:1;animation:warp-in 1.55s cubic-bezier(.58,.02,.82,.35) forwards}
+.warp:after{content:"";position:absolute;inset:-20%;border:3px solid #fff8;border-radius:50%;box-shadow:0 0 30px 12px #fff5,inset 0 0 45px 18px #fff4;transform:scale(.15, .1)}
+.warp.active:after{animation:ripple 1.55s cubic-bezier(.55,.02,.8,.3) forwards}
+@keyframes warp-in{0%{clip-path:ellipse(0% 0% at 50% 50%);backdrop-filter:blur(0px) saturate(1);-webkit-backdrop-filter:blur(0px) saturate(1)}45%{clip-path:ellipse(42% 35% at 50% 50%);backdrop-filter:blur(12px) saturate(1.8);-webkit-backdrop-filter:blur(12px) saturate(1.8)}100%{clip-path:ellipse(115% 115% at 50% 50%);backdrop-filter:blur(22px) saturate(1.5);-webkit-backdrop-filter:blur(22px) saturate(1.5)}}
+@keyframes ripple{to{transform:scale(7,5);opacity:0}}
+.dark{position:fixed;z-index:10;inset:0;background:#050409;opacity:0;pointer-events:none;transition:opacity 1.15s ease}
 body.black .dark{opacity:1}
-@media(prefers-reduced-motion:reduce){.star{animation:none}.letter{animation-duration:20s}}
+@media(prefers-reduced-motion:reduce){.star{animation:none}.letter{animation-duration:30s}}
 </style>
 </head>
 <body>
@@ -51,13 +63,15 @@ body.black .dark{opacity:1}
   <i class="star tiny" style="left:53%;top:55%"></i><i class="star" style="left:32%;top:53%;animation-delay:1.4s"></i>
  </div>
  <button class="letter" id="letter" aria-label="Abrir carta">
-  <span class="envelope"></span><span class="seal"></span>
+  <span class="envelope"></span><span class="flap"></span><span class="seal"></span>
  </button>
 </main>
+<div class="warp" id="warp" aria-hidden="true"></div>
 <div class="dark" aria-hidden="true"></div>
 <script>
 const scene=document.getElementById('scene');
 const letter=document.getElementById('letter');
+const warp=document.getElementById('warp');
 let opened=false;
 letter.addEventListener('click',()=>{
  if(opened)return;
@@ -71,13 +85,19 @@ letter.addEventListener('click',()=>{
  requestAnimationFrame(()=>{
    letter.style.left='50%';
    letter.style.top='50%';
-   letter.style.transform='translate(-50%,-50%) scale(1.12) rotate(0deg)';
+   letter.style.transform='translate(-50%,-50%) scale(1.08) rotate(0deg)';
  });
  window.setTimeout(()=>{
+   letter.classList.add('opening');
+   warp.classList.add('active');
+   scene.style.transition='transform 1.5s cubic-bezier(.5,0,.8,.3),filter 1.5s';
+   scene.style.transform='scale(1.12)';
+   scene.style.filter='blur(2px) brightness(.72) saturate(1.3)';
+ },850);
+ window.setTimeout(()=>{
    letter.classList.add('portal');
-   scene.style.filter='brightness(.45)';
- },1050);
- window.setTimeout(()=>document.body.classList.add('black'),1550);
+ },1120);
+ window.setTimeout(()=>document.body.classList.add('black'),2350);
 });
 </script>
 </body>
